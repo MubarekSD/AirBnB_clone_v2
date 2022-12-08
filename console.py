@@ -13,25 +13,37 @@ from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
-    """ Contains the functionality for the HBNB console"""
+    """Contains the functionality for the HBNB console
+
+    Args:
+        cmd (_type_): _description_
+
+    Raises:
+        Exception: _description_
+        SyntaxError: _description_
+
+    Returns:
+        _type_: _description_
+    """
 
     # determines prompt for interactive/non-interactive modes
     prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
 
     classes = {
-               'BaseModel': BaseModel, 'User': User, 'Place': Place,
-               'State': State, 'City': City, 'Amenity': Amenity,
-               'Review': Review
-              }
+        'BaseModel': BaseModel, 'User': User, 'Place': Place,
+        'State': State, 'City': City, 'Amenity': Amenity,
+        'Review': Review
+    }
     dot_cmds = ['all', 'count', 'show', 'destroy', 'update']
     types = {
-             'number_rooms': int, 'number_bathrooms': int,
-             'max_guest': int, 'price_by_night': int,
-             'latitude': float, 'longitude': float
-            }
+        'number_rooms': int, 'number_bathrooms': int,
+        'max_guest': int, 'price_by_night': int,
+        'latitude': float, 'longitude': float
+    }
 
     def preloop(self):
-        """Prints if isatty is false"""
+        """Prints if isatty is false
+        """
         if not sys.__stdin__.isatty():
             print('(hbnb)')
 
@@ -87,34 +99,60 @@ class HBNBCommand(cmd.Cmd):
             return line
 
     def postcmd(self, stop, line):
-        """Prints if isatty is false"""
+        """Prints if isatty is false
+
+        Args:
+            stop (_type_): _description_
+            line (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
         if not sys.__stdin__.isatty():
             print('(hbnb) ', end='')
         return stop
 
     def do_quit(self, command):
-        """ Method to exit the HBNB console"""
+        """Method to exit the HBNB console
+
+        Args:
+            command (_type_): _description_
+        """
         exit()
 
     def help_quit(self):
-        """ Prints the help documentation for quit  """
+        """Prints the help documentation for quit
+        """
         print("Exits the program with formatting\n")
 
     def do_EOF(self, arg):
-        """ Handles EOF to exit program """
+        """Handles EOF to exit program
+
+        Args:
+            arg (_type_): _description_
+        """
         print()
         exit()
 
     def help_EOF(self):
-        """ Prints the help documentation for EOF """
+        """Prints the help documentation for EOF
+        """
         print("Exits the program without formatting\n")
 
     def emptyline(self):
-        """ Overrides the emptyline method of CMD """
+        """Overrides the emptyline method of CMD
+        """
         pass
 
     def do_create(self, args):
-        """ Create an object of any class"""
+        """Create an object of any class
+
+        Args:
+            args (_type_): _description_
+
+        Raises:
+            SyntaxError: _description_
+        """
         try:
             if not args:
                 raise SyntaxError()
@@ -125,7 +163,7 @@ class HBNBCommand(cmd.Cmd):
                 arg_splited[1] = eval(arg_splited[1])
                 if type(arg_splited[1]) is str:
                     arg_splited[1] = arg_splited[1]\
-                            .replace("_", " ").replace('"', '\\"')
+                        .replace("_", " ").replace('"', '\\"')
                 kw[arg_splited[0]] = arg_splited[1]
         except SyntaxError:
             print("** class name missing **")
@@ -136,12 +174,17 @@ class HBNBCommand(cmd.Cmd):
         print(new_instance.id)
 
     def help_create(self):
-        """ Help information for the create method """
+        """Help information for the create method
+        """
         print("Creates a class of any type")
         print("[Usage]: create <className>\n")
 
     def do_show(self, args):
-        """ Method to show an individual object """
+        """Method to show an individual object
+
+        Args:
+            args (_type_): _description_
+        """
         new = args.partition(" ")
         c_name = new[0]
         c_id = new[2]
@@ -169,7 +212,8 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def help_show(self):
-        """ Help information for the show command """
+        """Help information for the show command
+        """
         print("Shows an individual instance of a class")
         print("[Usage]: show <className> <objectId>\n")
 
@@ -202,12 +246,17 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def help_destroy(self):
-        """ Help information for the destroy command """
+        """Help information for the destroy command
+        """
         print("Destroys an individual instance of a class")
         print("[Usage]: destroy <className> <objectId>\n")
 
     def do_all(self, args):
-        """ Shows all objects, or all objects of a class"""
+        """Shows all objects, or all objects of a class
+
+        Args:
+            args (_type_): _description_
+        """
         print_list = []
 
         if args:
@@ -223,12 +272,17 @@ class HBNBCommand(cmd.Cmd):
         print(print_list)
 
     def help_all(self):
-        """ Help information for the all command """
+        """Help information for the all command
+        """
         print("Shows all objects, or all of a class")
         print("[Usage]: all <className>\n")
 
     def do_count(self, args):
-        """Count current number of class instances"""
+        """Count current number of class instances
+
+        Args:
+            args (_type_): _description_
+        """
         count = 0
         for k, v in storage._FileStorage__objects.items():
             if args == k.split('.')[0]:
@@ -236,11 +290,16 @@ class HBNBCommand(cmd.Cmd):
         print(count)
 
     def help_count(self):
-        """ """
+        """_summary_
+        """
         print("Usage: count <class_name>")
 
     def do_update(self, args):
-        """ Updates a certain object with new info """
+        """Updates a certain object with new info
+
+        Args:
+            args (_type_): _description_
+        """
         c_name = c_id = att_name = att_val = kwargs = ''
 
         # isolate cls from id/args, ex: (<cls>, delim, <id/args>)
@@ -323,7 +382,8 @@ class HBNBCommand(cmd.Cmd):
         new_dict.save()  # save updates to file
 
     def help_update(self):
-        """ Help information for the update class """
+        """Help information for the update class
+        """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
 
