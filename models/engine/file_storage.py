@@ -26,9 +26,9 @@ class FileStorage:
                 partition = shlex.split(partition)
                 if (partition[0] == cls.__name__):
                     dic[key] = self.__objects[key]
-                    return (dic)
-                else:
-                    return self.__objects
+            return (dic)
+        else:
+            return self.__objects
 
     def new(self, obj):
         """Adds new object to storage dictionary"""

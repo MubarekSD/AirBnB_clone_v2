@@ -23,7 +23,7 @@ class BaseModel:
                     value = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
 
                 if key != '__class__':
-                    setattr(self, key, val)
+                    setattr(self, key, value)
 
             if 'id' not in kwargs:
                 self.id = str(uuid4())
@@ -36,7 +36,6 @@ class BaseModel:
         else:
             self.id = str(uuid4())
             self.created_at = self.updated_at = datetime.now()
-
 
     def __str__(self):
         """Returns a string representation of the instance"""
