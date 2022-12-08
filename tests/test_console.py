@@ -28,8 +28,8 @@ class TestCommand(unittest.TestCase):
     @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db', "Not FileStorage")
     def test_create_fs(self):
         """test the create command"""
-        pass 
-       
+        pass
+
     def testPycodeStyle(self):
         """Pycodestyle test for console.py"""
         style = pycodestyle.StyleGuide(quiet=True)
