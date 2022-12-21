@@ -9,8 +9,8 @@ def do_pack():
     """generate
     """
     try:
-        local("mkdir versions")
-        res = local("tar -cvxf versions/web_static_{}.tgz"
+        local("mkdir -p versions")
+        res = local("tar -cvzf versions/web_static_{}.tgz"
                     .format(datetime.strftime(datetime.now(), "%Y%m%d%H%M%S")),
                     capture=True)
         return res
