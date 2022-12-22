@@ -2,7 +2,7 @@
 """generates a .tgz archive from the contents of the web_static folder
 """
 from datetime import datetime
-from fabric.api import *
+from fabric.api import env, local, put, run
 import os
 
 env.hostst = ['100.25.191.25', '54.209.27.50']
