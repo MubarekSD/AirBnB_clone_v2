@@ -2,8 +2,7 @@
 """Create and distributes an archive to web servers"""
 import os.path
 import time
-from fabric.api import local
-from fabric.operations import env, put, run
+from fabric.api import *
 
 env.hosts = ['100.25.191.25', '54.209.27.50']
 env.user = "ubuntu"
