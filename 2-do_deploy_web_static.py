@@ -6,6 +6,7 @@ from fabric.api import *
 import os
 
 env.hostst = ['100.25.191.25', '54.209.27.50']
+env.user = "ubuntu"
 
 
 def do_pack():
@@ -29,13 +30,17 @@ def do_deploy(archive_path):
         newest_version = "/data/web_static/releases/" + archived_file[:-4]
         archived_file = "/tmp/" + archived_file
         put(archive_path, "/tmp/")
-        run("mkdir -p {}".format(newest_version))
-        run("tar -xzf {} -c {}/".format(archived_file, newest_version))
-        run("rm {}".format(archived_file))
-        run(" mv {}/web_static/* {}".format(newest_version, newest_version))
-        run("rm -rf {}/web_static".format(newest_version))
-        run("rm -rf /data/web_static/current")
-        run("ln -sf {} /data/web_static/current".format(newest_version))
-        print('New version deployed!')
+        run("sudo mkdir -p {}".format(newest_version))
+        run("sudo tar -xzf {} -C {}/".format(archived_file,
+                                             newest_version))
+        run("sudo rm {}".format(archived_file))
+        run("sudo mv {}/web_static/* {}".format(newest_version,
+                                                newest_version))
+        run("sudo rm -rf {}/web_static".format(newest_version))
+        run("sudo rm -rf /data/web_static/current")
+        run("sudo ln -s {} /data/web_static/current".format(newest_version))
+
+        print("New version deployed!")
         return True
+
     return False
