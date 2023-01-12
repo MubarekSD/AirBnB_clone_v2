@@ -19,7 +19,7 @@ def hello():
 def hbnb():
     """prints “HBNB”
     """
-    return 'HBNB';
+    return 'HBNB'
 
 
 @app.route('/c/<text>')
