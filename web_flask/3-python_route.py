@@ -29,6 +29,7 @@ def c_is_fun(text):
     return 'C {}'.format(text.replace('_', ' '))
 
 
+@app.route('/python')
 @app.route('/python/<text>')
 def python_is_magic(text='is cool'):
     """prints “Python ”, followed by the value of the text
