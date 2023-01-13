@@ -41,7 +41,7 @@ def python_is_magic(text='is cool'):
 def number(n):
     """prints "n is a number” only if n is an integer
     """
-    return f'{n:d} is a number'
+    return '{:d} is a number'.format(n)
 
 
 if __name__ == '__main__':
